@@ -1,0 +1,65 @@
+<%- include("./layout.ejs") %>
+
+<h1>My Listings</h1>
+
+<% if (message) { %>
+  <div style="
+    background-color: #e1f7e4;
+    color: #1b5e20;
+    border: 1px solid #81c784;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  ">
+    <%= message %>
+  </div>
+<% } %>
+
+<% if (error) { %>
+  <div style="
+    background-color: rgb(253, 89, 89);
+    color: darkred;
+    border: 1px solid magenta;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  ">
+    <%= error %>
+  </div>
+<% } %>
+
+<div class="flex">
+  <section class="half">
+    <h2>Your Items</h2>
+    <% if (!myListings.length) { %>
+      <p>You have no listings added.</p>
+    <% } %>
+    <div class="grid">
+      <% myListings.forEach(item => { %>
+        <article class="card">
+          <% if (item.imageUrl) { %>
+            <img class="thumb" src="<%= item.imageUrl %>" alt="">
+          <% } %>
+          <h3><%= item.title %></h3>
+          <p class="muted">$<%= item.price.toFixed(2) %> | <%= item.category || "General" %></p>
+          <p><%= item.description.slice(0,120) %><%= item.description.length > 120 ? "..." : "" %></p>
+          <% if (item.pickupAvailable) { %>
+            <p class="muted">Pickup available</p>
+          <% } %>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+            <a class="btn small" href="/listings/<%= item._id %>">Details</a>
+            <form action="/listings/<%= item._id %>/delete" method="POST">
+              <button class="btn small danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </section>
+  <aside class="half">
+    <h2>Add More</h2>
+    <p><a class="btn" href="/listings/new">Create a new listing</a></p>
+  </aside>
+</div>

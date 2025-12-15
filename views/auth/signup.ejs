@@ -1,0 +1,25 @@
+<%- include("../layout.ejs") %>
+
+<h1>Sign Up</h1>
+
+<% if (error) { %>
+  <div style="
+    background-color: rgb(253, 89, 89);
+    color: darkred;
+    border: 1px solid magenta;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  ">
+    <%= error %>
+  </div>
+<% } %>
+
+<form method="POST" action="/auth/signup" class="card form">
+  <label>Name<input type="text" name="name" required/></label>
+  <label>Email <input type="email" name="email" required /></label>
+  <label>Password <input type="password" name="password" required minlength="6" /></label>
+  <button class="btn" type="submit">Create Account</button>
+  <p>Already have an account? <a href="/auth/login">Log in</a></p>
+</form>

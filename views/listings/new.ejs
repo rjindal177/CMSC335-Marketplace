@@ -1,0 +1,20 @@
+<%- include("../layout.ejs") %>
+
+<h1>New Listing</h1>
+<form class="card form" method="POST" action="/listings">
+  <label>Title <input type="text" name="title" required maxlength="120" /></label>
+  <label>Price <input type="number" name="price" step="0.01" min="0" required /></label>
+  <label>Category <input type="text" name="category" placeholder="Electronics, Books..." /></label>
+  <label>City<input type="text" name="city" placeholder="e.g., College Park" /></label>
+  <label>Contact Email Address<input type="text" name="contact" required/></label>
+  <label>Image URL <input type="url" name="imageUrl" placeholder="https://..." /></label>
+  <label class="checkbox">
+    <input type="checkbox" name="pickupAvailable" />
+    Pickup available (buyer can collect in person)
+  </label>
+  <label>Pickup Location for Google Maps (address or place name)
+    <input type="text" name="pickupLocation" placeholder="123 Paint Branch Dr, College Park, MD" />
+  </label>
+  <label>Description <textarea name="description" rows="5" maxlength="1000"></textarea></label>
+  <button class="btn" type="submit">Create Listing</button>
+</form>

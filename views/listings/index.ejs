@@ -1,0 +1,20 @@
+<%- include("../layout.ejs") %>
+
+<h1>Browse Listings</h1>
+<div class="grid">
+  <% listings.forEach(l => { %>
+    <article class="card">
+      <% if (l.imageUrl) { %>
+        <img class="thumb" src="<%= l.imageUrl %>" alt="">
+      <% } %>
+      <h3><%= l.title %></h3>
+      <p class="muted">$<%= l.price.toFixed(2) %> | <%= l.category || "General" %></p>
+      <p><%= l.description.slice(0,120) %><%= l.description.length > 120 ? "..." : "" %></p>
+      <p class="muted">Seller: <%= l.owner?.name || l.owner?.email %></p>
+      <% if (l.pickupAvailable) { %>
+        <p class="muted">Pickup available</p>
+      <% } %>
+      <a class="btn small" href="/listings/<%= l._id %>">Details</a>
+    </article>
+  <% }) %>
+</div>

@@ -1,0 +1,46 @@
+<%- include("../layout.ejs") %>
+
+<article class="card">
+  <% if (listing.imageUrl) { %>
+    <img class="hero" src="<%= listing.imageUrl %>" alt="">
+  <% } %>
+  <h1><%= listing.title %></h1>
+  <p class="muted">$<%= listing.price.toFixed(2) %> | <%= listing.category || "General" %></p>
+  <p><%= listing.description %></p>
+  <p><strong>City:</strong> <%= listing.city || "Not provided" %> | <strong>Contact:</strong> <%= listing.contact || listing.owner?.email || "Not provided" %></p>
+
+  <% if (listing.pickupAvailable) { %>
+    <div class="pickup">
+      <h3>Pickup</h3>
+      <p><strong>Location:</strong>
+        <% if (listing.pickupLocation) { %>
+          <%= listing.pickupLocation %>
+        <% } else { %>
+          <%= listing.city || "Not provided" %>
+        <% } %>
+      </p>
+
+      <% if (pickupMapEmbedUrl) { %>
+        <div class="map-embed">
+          <iframe
+            src="<%= pickupMapEmbedUrl %>"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Pickup location map"
+          ></iframe>
+        </div>
+      <% } %>
+
+      <% if (pickupDirectionsUrl) { %>
+        <p><a class="btn small" href="<%= pickupDirectionsUrl %>" target="_blank" rel="noopener">Open in Google Maps</a></p>
+      <% } else { %>
+        <p class="muted">Add a pickup location to show a map and directions link.</p>
+      <% } %>
+    </div>
+  <% } else { %>
+    <p class="muted">Pickup not offered for this listing.</p>
+  <% } %>
+</article>
+
+<p><a class="btn" href="/listings">Back to Browse</a></p>
